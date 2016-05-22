@@ -9,9 +9,9 @@ class HashSet
   end
 
   def insert(num)
+    resize! if @count >= @store.length
     @store[num.hash % @store.length] << num
     @count += 1
-    resize! if @count >= @store.length
   end
 
   def remove(num)
@@ -33,12 +33,10 @@ class HashSet
   end
 
   def resize!
-    old_store = @store
-    @store = Array.new(2 * @count) { Array.new }
-    @count = 0
-    old_store.flatten.each do |val|
-      insert(val)
+    new_store = Array.new(2 * @count) {Array.new}
+    @store.flatten.each do |val|
+      new_store[val % new_store.length] << val
     end
-    @store
+    @store = new_store
   end
 end

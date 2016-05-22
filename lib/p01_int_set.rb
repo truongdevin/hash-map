@@ -67,13 +67,14 @@ class ResizingIntSet
   end
 
   def insert(num)
+    resize! if @count >= @store.length
     @store[num % @store.length] << num
     @count += 1
-    resize! if @count >= @store.length
   end
 
   def remove(num)
     @store[num % @store.length].delete(num)
+    @count -= 1
   end
 
   def include?(num)
@@ -92,10 +93,8 @@ class ResizingIntSet
 
   def resize!
     new_store = Array.new(2 * @count) {[]}
-    @store.each do |bucket|
-      bucket.each do |num|
-        new_store[num % new_store.length] << num
-      end
+    @store.flatten.each do |val|
+      new_store[val % new_store.length] << val
     end
     @store = new_store
   end

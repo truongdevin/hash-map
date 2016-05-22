@@ -57,7 +57,7 @@ class HashMap
 
   def resize!
     old_store = @store
-    @store = Array.new(3 * @count) { LinkedList.new }
+    @store = Array.new(2 * num_buckets) { LinkedList.new }
     @count = 0
     old_store.each do |list|
       list.each do |link|

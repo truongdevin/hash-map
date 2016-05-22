@@ -11,10 +11,6 @@ class Link
   def to_s
     "#{@key}: #{@val}"
   end
-
-  # def inspect
-  #   "#{@key}: #{@val}"
-  # end
 end
 
 class LinkedList
